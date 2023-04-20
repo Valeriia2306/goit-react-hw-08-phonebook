@@ -7,4 +7,5 @@ export const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
   padding: 20px 10px;
+
 `;

@@ -11,9 +11,9 @@ export const Form = styled(FormikForm)`
   gap: 5px;
   font-weight: 500;
   padding: 5px;
-  border: 1px solid black;
+  border: none;
   border-radius: 5px;
-  background-color: #2196f3;
+  background-color: #ff1744;
 `;
 
 export const Field = styled(Input)`
@@ -44,8 +44,9 @@ export const Button = styled.button`
   border: none;
   color: #fff;
   cursor: pointer;
-  background-color: green;
+  background-color: #3f51b5;
   transition: 250ms;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   :hover {

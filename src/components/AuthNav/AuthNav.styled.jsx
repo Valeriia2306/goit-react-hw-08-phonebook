@@ -6,14 +6,13 @@ export const List = styled.ul`
   gap: 25px;
 `;
 export const Link = styled(NavLink)`
-  color: #00e676;
   font-size: 25px;
   line-height: 20px;
   font-weight: 600;
   &.active {
-    color: #3f51b5;
+    color: white;
   }
-  /* :hover {
-    color: #e84a5f;
-  } */
+  :hover {
+    color: #ffcdd2;
+ 
 `;

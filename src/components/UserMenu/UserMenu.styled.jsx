@@ -22,7 +22,7 @@ export const Button = styled.button`
   /* border: 1px solid #c8c8c8; */
   display: inline-block;
   border-radius: 10px;
-  background-color: #f5f4fa;
+  background-color: #3f51b5;
   font-weight: 600;
   font-size: 18px;
   :hover {
