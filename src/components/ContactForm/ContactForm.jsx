@@ -1,56 +1,75 @@
-import { Formik, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewContact } from 'Redux/operations';
-import newContact from 'service/newContact';
-import { selectContacts } from 'Redux/selectors';
+import { addContact } from 'redux/phonebook/operations';
+import { selectContacts } from 'redux/phonebook/selectors';
+import { Formik, Field } from 'formik';
+import * as Yup from 'yup';
+import { Label, Button, Form, ErrorMessage } from './ContactForm.styled';
+import { toast } from 'react-hot-toast';
 
-// import styles
-import { Label, Form, Input, Button } from './ContactForm.styled';
+const FormSchema = Yup.object().shape({
+  name: Yup.string()
+    .matches(
+      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+      'The name may contain only letters!!!'
+    )
+    .min(3, 'Too short')
+    .max(15, 'Too long')
+    .required('Required')
+    .trim(),
+  number: Yup.string()
+    .matches(
+      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
+      'Phone number must be digits!!!'
+    )
+    .min(5, 'Too short')
+    .max(10, 'Too long')
+    .required('Required')
+    .trim(),
+});
 
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const onSubmitForm = (values, { resetForm }) => {
-    if (newContact(contacts, values.name)) {
-      dispatch(addNewContact(values));
-      resetForm();
-    }
-  };
 
-  const initialValues = {
-    name: '',
-    phone: '',
+  const handleSubmit = (values, { resetForm }) => {
+    if (contacts.some(({ name }) => name === values.name)) {
+      toast(`${values.name} is alreary in contacts`, {
+        style: {
+          background: '#ca1616',
+          color: '#fff',
+        },
+      });
+      resetForm();
+      return;
+    }
+    dispatch(addContact(values));
+    resetForm();
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmitForm}>
+    <Formik
+      initialValues={{
+        name: '',
+        number: '',
+      }}
+      validationSchema={FormSchema}
+      onSubmit={handleSubmit}
+    >
       <Form>
-        <Label>
-          <span> Name</span>
-          <Input
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-          <ErrorMessage name="name" component="span" />
+        <Label htmlFor="name">
+          Name:
+          <Field type="text" name="name" />
         </Label>
-        <Label>
-          <span>Phone</span>
-          <Input
-            type="tel"
-            name="phone"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-          <ErrorMessage name="phone" component="span" />
+        <ErrorMessage name="name" component="div" />
+        <Label htmlFor="number">
+          Number:
+          <Field type="tel" name="number" />
         </Label>
-        <Button type="submit"> Add contact</Button>
+        <ErrorMessage name="number" component="div" />
+        <Button type="submit">ADD CONTACT</Button>
       </Form>
     </Formik>
   );
 };
 
-export default ContactForm;
+export { ContactForm };

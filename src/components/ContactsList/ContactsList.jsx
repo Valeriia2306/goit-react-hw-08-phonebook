@@ -1,25 +1,59 @@
-import { useSelector } from 'react-redux';
-import Contact from '../ContactItem/ContactItem';
-import { filteredContacts } from 'Redux/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectFilteredContact,
+  selectLoading,
+  selectError,
+} from 'redux/phonebook/selectors';
+import { useEffect } from 'react';
+import { fetchContacts, deleteContact } from 'redux/phonebook/operations';
 
-// styles
-import { ContactsList, LabelItem } from './ContactsList.styled';
+import { List, Item, Button } from './ContactsList.styled';
+import { ThreeDots } from 'react-loader-spinner';
 
 const ContactList = () => {
-  const contacts = useSelector(filteredContacts);
+  const filteredContacts = useSelector(selectFilteredContact);
+  const isLoading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const delContact = id => {
+    dispatch(deleteContact(id));
+  };
+
   return (
-    <ContactsList>
-      {contacts[0] && (
-        <LabelItem>
-          <span>Name:</span>
-          <span>Tell:</span>
-        </LabelItem>
+    <>
+      {isLoading && !error && (
+        <ThreeDots
+          height="40"
+          width="40"
+          radius="9"
+          color="#4fa94d"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
       )}
-      {contacts.map(({ id, name, phone }) => (
-        <Contact key={id} id={id} name={name} phone={phone} />
-      ))}
-    </ContactsList>
+      {/* {isLoading && !error && <div>Loading...</div>} */}
+      <List>
+        {filteredContacts.map(({ id, name, number }) => {
+          return (
+            <Item key={id}>
+              <span>{name}:</span>
+              <span>{number}</span>
+              <Button type="button" onClick={() => delContact(id)}>
+                Delete
+              </Button>
+            </Item>
+          );
+        })}
+      </List>
+    </>
   );
 };
-//
-export default ContactList;
+
+export { ContactList };

@@ -1,21 +1,40 @@
 import styled from '@emotion/styled';
 
-const ContactsList = styled.ul`
+export const List = styled.ul`
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  justify-content: center;
+  padding: 0;
+  margin: 0;
 `;
 
-const LabelItem = styled.span`
+export const Item = styled.li`
   display: flex;
-  margin-left: 10px;
-  gap: 180px;
-  font-size: 18px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  font-size: 20px;
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 5px;
+`;
+
+export const Button = styled.button`
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 15px;
   font-weight: 500;
-  color: white;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: #ff1744;
+  transition: 250ms;
   &:hover {
-    color: blue;
+    scale: 1.05;
+  }
+  &:active {
+    scale: 0.95;
+    background-color: blue;
   }
 `;
-export { ContactsList, LabelItem };
