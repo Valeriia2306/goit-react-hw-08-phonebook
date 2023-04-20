@@ -2,12 +2,10 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Label, Field, Form, ErrorMessage, Button } from './SignUp.styled';
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/auth/operations';
+import { register } from 'Redux/auth/operations';
 
 const SubmitSchema = Yup.object().shape({
-  name: Yup.string()
-    .required('Enter name')
-    .trim(),
+  name: Yup.string().required('Enter name').trim(),
   email: Yup.string()
     .nullable()
     .email('Invalid email address')

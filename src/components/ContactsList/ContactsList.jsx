@@ -3,9 +3,9 @@ import {
   selectFilteredContact,
   selectLoading,
   selectError,
-} from 'redux/phonebook/selectors';
+} from 'Redux/phonebook/selectors';
 import { useEffect } from 'react';
-import { fetchContacts, deleteContact } from 'redux/phonebook/operations';
+import { fetchContacts, deleteContact } from 'Redux/phonebook/operations';
 
 import { List, Item, Button } from './ContactsList.styled';
 import { ThreeDots } from 'react-loader-spinner';

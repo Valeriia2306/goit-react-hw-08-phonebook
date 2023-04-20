@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { Label, Field, Form, ErrorMessage, Button } from './LogInForm.styled';
 
 import { useDispatch } from 'react-redux';
-import { logIn } from 'redux/auth/operations';
+import { logIn } from 'Redux/auth/operations';
 
 const SubmitSchema = Yup.object().shape({
   email: Yup.string()

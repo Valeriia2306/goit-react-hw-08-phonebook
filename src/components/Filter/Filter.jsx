@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilterValue } from 'redux/phonebook/filterSlice';
-import { selectFilterValue } from 'redux/phonebook/selectors';
+import { setFilterValue } from 'Redux/phonebook/filterSlice';
+import { selectFilterValue } from 'Redux/phonebook/selectors';
 
 import { Input, Label } from './Filter.styled';
 

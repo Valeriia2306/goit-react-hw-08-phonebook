@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/phonebook/operations';
-import { selectContacts } from 'redux/phonebook/selectors';
+import { addContact } from 'Redux/phonebook/operations';
+import { selectContacts } from 'Redux/phonebook/selectors';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { Label, Button, Form, ErrorMessage } from './ContactForm.styled';
